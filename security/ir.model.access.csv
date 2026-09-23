@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_form_employee_user,form.employee.user,model_form_employee,base.group_user,1,1,1,1
+access_form_employee_anak_user,form.employee.anak.user,model_form_employee_anak,base.group_user,1,1,1,1
+access_form_employee_tanggungan_user,form.employee.tanggungan.user,model_form_employee_tanggungan,base.group_user,1,1,1,1
+access_form_employee_telepon_user,form.employee.telepon.user,model_form_employee_telepon,base.group_user,1,1,1,1
+access_form_employee_kontak_darurat_user,form.employee.kontak_darurat.user,model_form_employee_kontak_darurat,base.group_user,1,1,1,1
+access_form_employee_rekening_user,form.employee.rekening.user,model_form_employee_rekening,base.group_user,1,1,1,1
+access_form_employee_pendidikan_user,form.employee.pendidikan.user,model_form_employee_pendidikan,base.group_user,1,1,1,1

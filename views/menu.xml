@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_form_employee_root"
+              name="Data Karyawan"
+              sequence="10"/>
+
+    <menuitem id="menu_form_employee_main"
+              name="Manajemen Karyawan"
+              parent="menu_form_employee_root"
+              sequence="10"/>
+
+    <menuitem id="menu_form_employee_list"
+              name="Daftar Karyawan"
+              parent="menu_form_employee_main"
+              action="action_form_employee"
+              sequence="10"/>
+</odoo>

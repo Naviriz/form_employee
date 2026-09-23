@@ -1,0 +1,189 @@
+/*
+ * Odoo 19 custom styling for the Form Employee module.
+ *
+ * IMPORTANT:
+ * Keep the selectors scoped to .o_form_employee so this file cannot alter
+ * Odoo's global backend layout/chatter/list rendering.
+ */
+
+.o_form_employee {
+    --employee-content-max-width: 1400px;
+    --employee-column-gap: 24px;
+}
+
+.o_form_employee .o_form_sheet_bg > .o_form_sheet {
+    width: 100%;
+    max-width: var(--employee-content-max-width);
+    margin-inline: auto;
+    box-sizing: border-box;
+}
+
+/* Two-column sections used by the custom employee form. */
+.o_form_employee .o_employee_primary_layout {
+    width: 100%;
+    min-width: 0;
+}
+
+/* The wrapper is a div; child groups can therefore be sized without changing
+ * Odoo's native table/grid behavior inside each group. */
+.o_form_employee div.o_employee_primary_layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--employee-column-gap);
+    align-items: start;
+}
+
+.o_form_employee div.o_employee_primary_layout > .o_group {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* When the class is placed on an Odoo <group>, preserve Odoo's own layout. */
+.o_form_employee .o_group.o_employee_primary_layout {
+    width: 100%;
+    min-width: 0;
+}
+
+.o_form_employee .o_employee_section {
+    width: 100%;
+    min-width: 0;
+}
+
+.o_form_employee .o_employee_x2many {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.o_form_employee .o_employee_x2many .o_list_renderer {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.o_form_employee .o_employee_x2many .o_list_table {
+    width: 100%;
+    min-width: 0;
+    table-layout: auto;
+}
+
+.o_form_employee .o_employee_x2many .o_list_table th,
+.o_form_employee .o_employee_x2many .o_list_table td {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    vertical-align: middle;
+}
+
+/* Profile block: photo + name/job title. */
+.o_form_employee .o_employee_profile {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    width: 100%;
+    margin-bottom: 20px;
+    min-width: 0;
+}
+
+.o_form_employee .o_employee_profile .oe_avatar {
+    flex: 0 0 auto;
+    float: none !important;
+    margin: 0 !important;
+}
+
+.o_form_employee .o_employee_profile .o_employee_identity {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_form_employee .o_employee_profile .o_employee_identity h1,
+.o_form_employee .o_employee_profile .o_employee_identity h2 {
+    min-width: 0;
+}
+
+.o_form_employee .o_employee_profile .o_employee_identity input {
+    width: 100%;
+    max-width: 100%;
+}
+
+.o_form_employee .oe_title {
+    min-width: 0;
+    padding-right: 0;
+}
+
+.o_form_employee .o_employee_subform_group {
+    width: 100%;
+}
+
+.o_form_employee .o_employee_subform_group > .o_group {
+    width: 100%;
+    max-width: none;
+}
+
+/*
+ * Keep Odoo's native .oe_button_box behavior intact. Only make its contents
+ * fit when the custom form becomes narrow.
+ */
+.o_form_employee .oe_button_box {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1199.98px) {
+    .o_form_employee div.o_employee_primary_layout {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .o_form_employee div.o_employee_primary_layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .o_form_employee .o_employee_profile {
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .o_form_employee .o_employee_profile .o_employee_identity {
+        width: 100%;
+    }
+
+    .o_form_employee .o_employee_profile .oe_avatar {
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .o_form_employee .o_form_sheet_bg > .o_form_sheet {
+        max-width: 100%;
+        padding: 12px !important;
+    }
+
+    .o_form_employee .o_employee_x2many .o_list_table {
+        min-width: 620px;
+    }
+
+    .o_form_employee .o_employee_x2many .o_list_renderer {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .o_form_employee .o_employee_profile .oe_avatar {
+        width: 96px !important;
+        height: 96px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .o_form_employee .o_form_sheet_bg > .o_form_sheet {
+        padding: 8px !important;
+    }
+
+    .o_form_employee .o_employee_x2many .o_list_table {
+        min-width: 560px;
+    }
+}

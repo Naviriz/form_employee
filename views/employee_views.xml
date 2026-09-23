@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_list" model="ir.ui.view">
+        <field name="name">employee.list</field>
+        <field name="model">form.employee</field>
+        <field name="arch" type="xml">
+            <list string="Data Karyawan">
+                <field name="name"/>
+                <field name="job_title"/>
+                <field name="work_phone"/>
+                <field name="work_email"/>
+                <field name="company_id"/>
+                <field name="status_pernikahan"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_form_employee" model="ir.actions.act_window">
+        <field name="name">Data Karyawan</field>
+        <field name="res_model">form.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tambahkan Karyawan Baru!
+            </p>
+        </field>
+    </record>
+
+    <record id="view_form_employee_form" model="ir.ui.view">
+        <field name="name">form.employee.form</field>
+        <field name="model">form.employee</field>
+        <field name="arch" type="xml">
+            <form string="Data Karyawan" class="o_form_employee">
+                <header>
+                    <button
+                        name="%(action_form_employee)d"
+                        string="DATA KARYAWAN"
+                        type="action"
+                        class="oe_highlight"
+                    />
+                </header>
+
+                <sheet>
+                    <!-- Ringkasan cepat yang relevan untuk HR -->
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-graduation-cap">
+                            <field name="pendidikan_count" widget="statinfo" string="Pendidikan"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-child">
+                            <field name="anak_count" widget="statinfo" string="Data Anak"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-users">
+                            <field name="tanggungan_count" widget="statinfo" string="Tanggungan"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-phone-square">
+                            <field name="kontak_darurat_count" widget="statinfo" string="Kontak Darurat"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-university">
+                            <field name="rekening_count" widget="statinfo" string="Rekening Bank"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-mobile-phone">
+                            <field name="telepon_tambahan_count" widget="statinfo" string="Kontak Tambahan"/>
+                        </button>
+                    </div>
+
+                    <div class="o_employee_profile">
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'zoom': true}"/>
+                        <div class="oe_title o_employee_identity">
+                            <h1>
+                                <field name="name" placeholder="Nama Lengkap Karyawan"/>
+                            </h1>
+                            <h2>
+                                <field name="job_title" placeholder="Jabatan / Job Title"/>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="o_employee_primary_layout">
+                        <group string="Informasi Kerja">
+                            <field name="work_mobile" widget="phone" placeholder="Nomor ponsel kerja"/>
+                            <field name="work_phone" widget="phone" placeholder="Nomor telepon kantor"/>
+                            <field name="work_email" widget="email" placeholder="email@perusahaan.com"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group string="Organisasi">
+                            <field name="department_id" placeholder="Divisi / Departemen"/>
+                            <field name="manager_id" placeholder="Atasan langsung"/>
+                            <field name="coach_id" placeholder="Coach / Pembimbing"/>
+                        </group>
+                    </div>
+
+                    <notebook>
+                        <!-- Tab 1 -->
+                        <page string="Resume &amp; Pendidikan" name="resume">
+                            <group class="o_employee_section" string="Riwayat Pendidikan">
+                                <field name="pendidikan_ids" nolabel="1" class="o_employee_x2many" mode="list,form">
+                                    <list default_order="mulai desc">
+                                        <field name="gelar" width="120px"/>
+                                        <field name="nama_gelar" width="110px"/>
+                                        <field name="bidang" width="150px"/>
+                                        <field name="institusi" width="220px"/>
+                                        <field name="mulai" width="95px"/>
+                                        <field name="selesai" width="95px"/>
+                                        <field name="ijazah_file" filename="ijazah_filename" width="120px"/>
+                                        <field name="ijazah_filename" invisible="1"/>
+                                    </list>
+                                    <form string="Riwayat Pendidikan">
+                                        <group class="o_employee_subform_group">
+                                            <group string="Pendidikan">
+                                                <field name="gelar"/>
+                                                <field name="nama_gelar" placeholder="Contoh: S.Kom"/>
+                                                <field name="bidang"/>
+                                                <field name="institusi"/>
+                                            </group>
+                                            <group string="Periode">
+                                                <field name="mulai" placeholder="Tahun mulai"/>
+                                                <field name="selesai" placeholder="Tahun selesai"/>
+                                                <field name="ijazah_file" filename="ijazah_filename"/>
+                                                <field name="ijazah_filename" invisible="1"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Tab 2 -->
+                        <page string="Data Pribadi &amp; Keluarga" name="private_info">
+                            <group class="o_employee_primary_layout">
+                                <group string="Data Pribadi">
+                                    <field name="email" widget="email"/>
+                                    <field name="tanggal_lahir"/>
+                                    <field name="umur" readonly="1"/>
+                                    <field name="jenis_kelamin"/>
+                                    <field name="golongan_darah"/>
+                                    <field name="tempat_lahir"/>
+                                    <field name="agama"/>
+                                </group>
+                                <group string="Alamat Domisili">
+                                    <field name="same_as_ktp"/>
+                                    <field name="alamat_domisili" placeholder="Alamat lengkap domisili" nolabel="0"/>
+                                </group>
+                            </group>
+
+                            <group string="Status Keluarga" class="o_employee_section">
+                                <group>
+                                    <field name="nama_ayah"/>
+                                    <field name="nama_ibu"/>
+                                </group>
+                                <group>
+                                    <field name="status_pernikahan"/>
+                                    <field name="nama_pasangan" invisible="status_pernikahan != 'married'"/>
+                                </group>
+                            </group>
+
+                            <group string="Data Anak" class="o_employee_section" invisible="status_pernikahan == 'single'">
+                                <field name="anak_ids" nolabel="1" class="o_employee_x2many" mode="list,form">
+                                    <list>
+                                        <field name="nama" width="220px"/>
+                                        <field name="tanggal_lahir" width="130px"/>
+                                        <field name="jenis_kelamin" width="130px"/>
+                                    </list>
+                                    <form string="Data Anak">
+                                        <group class="o_employee_subform_group">
+                                            <field name="nama"/>
+                                            <field name="tanggal_lahir"/>
+                                            <field name="jenis_kelamin"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Tab 3 -->
+                        <page string="Kependudukan &amp; PTKP" name="citizenship">
+                            <group class="o_employee_primary_layout">
+                                <group string="KTP &amp; NPWP">
+                                    <field name="no_ktp" placeholder="16 digit angka"/>
+                                    <field name="alamat_ktp" placeholder="Alamat sesuai KTP"/>
+                                    <field name="no_npwp" placeholder="15 digit angka"/>
+                                    <field name="nama_npwp"/>
+                                    <field name="alamat_npwp" placeholder="Alamat NPWP"/>
+                                </group>
+                                <group string="BPJS &amp; PTKP">
+                                    <field name="no_kpj" placeholder="Nomor KPJ / BPJS Ketenagakerjaan"/>
+                                    <field name="no_bpjs" placeholder="Nomor BPJS Kesehatan"/>
+                                    <field name="status_ptkp"/>
+                                </group>
+                            </group>
+
+                            <group string="Data Tanggungan" class="o_employee_section">
+                                <field name="tanggungan_ids" nolabel="1" class="o_employee_x2many" mode="list,form">
+                                    <list>
+                                        <field name="nama" width="260px"/>
+                                        <field name="hubungan" width="160px"/>
+                                    </list>
+                                    <form string="Data Tanggungan">
+                                        <group class="o_employee_subform_group">
+                                            <field name="nama"/>
+                                            <field name="hubungan"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Tab 4 -->
+                        <page string="Kontak &amp; Kontak Darurat" name="contact">
+                            <group class="o_employee_primary_layout">
+                                <group string="No. Telepon &amp; Sosial Media">
+                                    <field name="telepon1" widget="phone"/>
+                                    <field name="telepon2" widget="phone"/>
+                                    <field name="linkedin" widget="url" placeholder="https://linkedin.com/in/..."/>
+                                    <field name="facebook" widget="url" placeholder="https://facebook.com/..."/>
+                                    <field name="instagram" widget="url" placeholder="https://instagram.com/..."/>
+                                </group>
+                                <group string="Telepon Tambahan">
+                                    <field name="telepon_tambahan_ids" nolabel="1" class="o_employee_x2many" mode="list,form">
+                                        <list>
+                                            <field name="nomor" width="260px"/>
+                                        </list>
+                                        <form string="Nomor Telepon Tambahan">
+                                            <group class="o_employee_subform_group">
+                                                <field name="nomor" widget="phone"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </group>
+
+                            <group string="Kontak Darurat" class="o_employee_section">
+                                <field name="kontak_darurat_ids" nolabel="1" class="o_employee_x2many" mode="list,form">
+                                    <list>
+                                        <field name="nama" width="190px"/>
+                                        <field name="hubungan" width="140px"/>
+                                        <field name="telepon1" width="160px"/>
+                                        <field name="telepon2" width="160px"/>
+                                        <field name="alamat" width="260px"/>
+                                    </list>
+                                    <form string="Kontak Darurat">
+                                        <group class="o_employee_subform_group">
+                                            <group>
+                                                <field name="nama"/>
+                                                <field name="hubungan"/>
+                                                <field name="telepon1" widget="phone"/>
+                                                <field name="telepon2" widget="phone"/>
+                                            </group>
+                                            <group>
+                                                <field name="alamat" placeholder="Alamat lengkap kontak darurat"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Tab 5 -->
+                        <page string="Bank &amp; Payroll" name="payroll">
+                            <group string="Daftar Rekening Bank" class="o_employee_section">
+                                <field name="rekening_ids" nolabel="1" class="o_employee_x2many" mode="list,form">
+                                    <list>
+                                        <field name="nama_pemilik" width="250px"/>
+                                        <field name="bank" width="180px"/>
+                                        <field name="nomor_rekening" width="220px"/>
+                                    </list>
+                                    <form string="Informasi Rekening Bank">
+                                        <group class="o_employee_subform_group">
+                                            <field name="nama_pemilik"/>
+                                            <field name="bank"/>
+                                            <field name="nomor_rekening"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Explicitly bind this action to the custom list and form views.
+         This removes view-selection ambiguity when a record is opened from the list. -->
+    <record id="action_form_employee_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_employee_list"/>
+        <field name="act_window_id" ref="action_form_employee"/>
+    </record>
+
+    <record id="action_form_employee_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_form_employee_form"/>
+        <field name="act_window_id" ref="action_form_employee"/>
+    </record>
+
+</odoo>
